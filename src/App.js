@@ -66,21 +66,17 @@ class App extends Component {
             this.setState(newState);
             return;
         }
-
         // check if the course has the preReq in the current term. If so, return and do nothing
         let curClass = start.taskIds[source.index];
         let curTermClasses = finish.taskIds;
         let curPre = this.state.cisCourses[curClass].preReq;
         let isConflictWithTerm = false;
         for (var i = 0; i < curTermClasses.length; i++) {
-            if (curPre.indexOf(curTermClasses[i]) != -1) {
+            if (curPre.indexOf(curTermClasses[i]) !== -1) {
                 isConflictWithTerm = true;
             }
         }
         
-        if (isConflictWithTerm) return;
-
-
         // drop at other column and update course color
         const startTaskIds = Array.from(start.taskIds);
         startTaskIds.splice(source.index, 1);
@@ -107,7 +103,7 @@ class App extends Component {
 
         // plantraverse();
         // xxx
-
+        
         //is able to add to previous term
         var case2Allow = true;
         if (destination.droppableId !== "columnUnpicked" && destination.droppableId !== "columnTaken"){
@@ -121,9 +117,8 @@ class App extends Component {
                         }
                     }
                 }
-
         }
-        if (case2Allow){
+        if (case2Allow&&!isConflictWithTerm){
             this.setState(newState);
         }
 
@@ -173,12 +168,16 @@ class App extends Component {
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <button onClick={this.addTerm}>add</button>
-                <Container>
+                <Container className={  'containerstyle'  }>
                     {this.state.columnOrder.map(columnId => {
+                        console.log(columnId);
                         const column = this.state.columns[columnId];
                         const tasks = column.taskIds.map(taskId => this.state.cisCourses[taskId]);
                         const isDropDisabled = column.taskIds.length >= 5 && column.id !== "columnUnpicked" && column.id !== "columnTaken";
-                        return <Column key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled}/>;
+                        const left = columnId === "columnUnpicked";
+                        const right = columnId === "columnTaken"
+                        
+                        return <Column left={left}  right={right} key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled}/>;
                     })}
                 </Container>
             </DragDropContext>

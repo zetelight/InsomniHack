@@ -4,7 +4,11 @@ import Course from "./course";
 import { Droppable } from 'react-beautiful-dnd'
 
 const Container = styled.div`
-  margin: 8px;
+ 
+  
+  
+  margin: auto;
+  margin-top:20px;
   border: 1px solid lightgrey;
   border-radius: 2px;
   width: 220px;
@@ -24,7 +28,7 @@ const CourseList = styled.div`
 export default class Column extends React.Component {
     render() {
         return(
-            <Container>
+            <Container left={this.props.left}  right={this.props.right}>
                 <Title>{this.props.column.title}</Title>
                 <Droppable 
                     droppableId={this.props.column.id}
