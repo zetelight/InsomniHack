@@ -10,6 +10,7 @@ const Container = styled.div`
   width: 220px;
   display: flex;
   flex-direction: column;
+  background-color: ${props => ('#fdffcd')}
 `;
 const Title = styled.h3`
   padding: 8px;
