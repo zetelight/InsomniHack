@@ -16,8 +16,12 @@ class App extends Component {
         this.state = {
             columns: initialData.columns,
             cisCourses: initialData.cisCourses,
-            columnOrder: initialData.columnOrder
+            columnOrder: initialData.columnOrder,
+            numberOfColumns: 3
         };
+        this.addTerm = this.addTerm.bind(this);
+        //this.getTermName = this.getTermName.bine(this);
+
     }
 
     onDragEnd = result => {
@@ -88,37 +92,40 @@ class App extends Component {
 
     };
 
-    // #TODO re-write this function
-    add(){
-        console.log(this.state);
 
-        var a = {
-            "column-4": {
-                id: "column-4",
-                title: "44444",
+    getTermName(id){
+        return "Term"+id
+    }
+
+    addTerm(){
+        var numOfCol = this.state.numberOfColumns+1
+        var name = this.getTermName(numOfCol-2)
+
+        var newCol = {
+            name: {
+                id: name,
+                title: name,
                 taskIds: []
             }
         }
 
-        var c = {}
-        var l = []
-        for (var i in this.state.columns) {
-
-            c[i] = this.state.columns[i]
-
+        var cols = {}
+        var colsOrder = []
+        for (var c in this.state.columns) {
+            cols[c] = this.state.columns[c]
         }
 
-        for (var i in this.state.columnOrder){
-            l.push(this.state.columnOrder[i])
+        for (var index in this.state.columnOrder){
+            colsOrder.push(this.state.columnOrder[index])
         }
 
-        l.push("column-4")
-
-        c["column-4"] = a["column-4"]
+        colsOrder.splice(-1,0,name)
+        cols[name] = newCol['name']
 
         this.setState({
-            columns:c,
-            columnOrder:l
+            columns:cols,
+            columnOrder:colsOrder,
+            numberOfColumns:numOfCol
         })
 
     }
@@ -126,7 +133,7 @@ class App extends Component {
     render() {
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
-                <button onClick={this.add.bind(this)}>add</button>
+                <button onClick={this.addTerm}>add</button>
                 <Container>
                     {this.state.columnOrder.map(columnId => {
                         const column = this.state.columns[columnId];
