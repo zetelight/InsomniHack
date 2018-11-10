@@ -8,7 +8,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 const Container = styled.div`
     display: flex;
-    background-color: ${props => ('#e0ffcd')}
+    background-color: ${props => ('#0f81c7')}
 `;
 
 class App extends Component {

@@ -10,14 +10,14 @@ const Container = styled.div`
   width: 220px;
   display: flex;
   flex-direction: column;
-  background-color: ${props => ('#fdffcd')}
+  background-color: ${props => ('#c8d9eb')}
 `;
 const Title = styled.h3`
   padding: 8px;
 `;
 const CourseList = styled.div`
   padding: 8px;
-  background-color: ${props => (props.isDraggingOver ? 'skyblue' : 'white')};
+  background-color: ${props => (props.isDraggingOver ? '#b9ceeb' : '#c8d9eb')};
   flex-grow:1;
   min-height:100px;
 `;

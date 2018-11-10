@@ -8,7 +8,7 @@ const Container = styled.div`
   padding: 8px;
   margin-bottom: 8px;
   background-color: ${props => (
-    props.isDragDisabled ? '#ffebbb' : '#ffcab0'
+    props.isDragDisabled ? '#87a8d0' : '#f9f9f9'
   )};
 `;
 
