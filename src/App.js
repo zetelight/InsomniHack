@@ -46,7 +46,6 @@ class App extends Component {
       // values is the class instance
       var newArray = [];
       var curCol = newColumns['columnTaken'];
-      console.log(newColumns)
       for (var j=0; j<curCol.taskIds.length; j++){
         var curCourse = newCourses[curCol.taskIds[j]];
         newArray.push({key:curCol.taskIds[j], value: curCourse})
@@ -113,7 +112,6 @@ class App extends Component {
             return;
         }
 
-
         // check if the course has the preReq in the current term. If so, return and do nothing
         let curClass = start.taskIds[source.index];
         let curTermClasses = finish.taskIds;
@@ -125,9 +123,6 @@ class App extends Component {
             }
         }
         
-        if (isConflictWithTerm) return;
-
-
         // drop at other column and update course color
         const startTaskIds = Array.from(start.taskIds);
         startTaskIds.splice(source.index, 1);
@@ -145,26 +140,44 @@ class App extends Component {
 
         var unpick = newStart
         var newColumns = this.state.columns
-        newColumns[newStart.id] = newStart
-        newColumns[newFinish.id] = newFinish
-        console.log(newColumns);
+        if (!isConflictWithTerm){
+          newColumns[newStart.id] = newStart
+          newColumns[newFinish.id] = newFinish
+        }
         var newCourses = this.unpickTraverse(unpick, this.state.cisCourses);
         var courses = this.planTraverse(newColumns, newCourses);
 
-        const newState = {
+        var newState = {
             ...this.state,
-            columns: {
-                ...this.state.columns,
-                [newStart.id]: newStart,
-                [newFinish.id]: newFinish,
-            },
-
+            columns: newColumns,
             cisCourses: courses
         };
 
 
+        // plantraverse();
+        // xxx
+        
+        //is able to add to previous term
+        var case2Allow = true;
+        if (destination.droppableId !== "columnUnpicked" && destination.droppableId !== "columnTaken"){
+            console.log(this.state.columnOrder)
+                for (var col in this.state.columnOrder){
+                    if (this.state.columnOrder[col] !== "columnUnpicked" && this.state.columnOrder[col] !== "columnTaken"){
+                        console.log(destination.droppableId < this.state.columnOrder[col])
+                        if (destination.droppableId < this.state.columnOrder[col]){
+                            console.log(destination.droppableId < this.state.columnOrder[col])
+                            case2Allow = false;
+                        }
+                    }
+                }
+        }
+        if (case2Allow&&!isConflictWithTerm){
+            this.setState(newState);
+            
+        } 
 
-        this.setState(newState);
+
+        
 
     };
 
@@ -211,12 +224,16 @@ class App extends Component {
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <button onClick={this.addTerm}>add</button>
-                <Container>
+                <Container className={  'containerstyle'  }>
                     {this.state.columnOrder.map(columnId => {
+                        console.log(columnId);
                         const column = this.state.columns[columnId];
                         const tasks = column.taskIds.map(taskId => this.state.cisCourses[taskId]);
                         const isDropDisabled = column.taskIds.length >= 5 && column.id !== "columnUnpicked" && column.id !== "columnTaken";
-                        return <Column key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled}/>;
+                        const left = columnId === "columnUnpicked";
+                        const right = columnId === "columnTaken"
+                        
+                        return <Column left={left}  right={right} key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled}/>;
                     })}
                 </Container>
             </DragDropContext>
