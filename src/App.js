@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import testdata from './testdata';
+import initialData from './initial-data'
+
 import Column from './column';
 import styled from 'styled-components'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -13,9 +15,9 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            columns: testdata.columns,
-            tasks: testdata.tasks,
-            columnOrder: testdata.columnOrder
+            columns: initialData.columns,
+            cisCourses: initialData.cisCourses,
+            columnOrder: initialData.columnOrder
         };
     }
 
@@ -130,7 +132,7 @@ class App extends Component {
 
                     {this.state.columnOrder.map(columnId => {
                         const column = this.state.columns[columnId];
-                        const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
+                        const tasks = column.taskIds.map(taskId => this.state.cisCourses[taskId]);
 
                         return <Column key={column.id} column={column} tasks={tasks}/>;
                     })}
