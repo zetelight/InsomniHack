@@ -140,7 +140,9 @@ class App extends Component {
     render() {
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
-                <button onClick={this.addTerm}>add</button>
+                <button style={{
+                    backgroundColor: '#ffff9d', border: '2px solid',
+                    borderRadius:'25px'}} onClick={this.addTerm}>Next term</button>
                 <Container>
                     {this.state.columnOrder.map(columnId => {
                         const column = this.state.columns[columnId];

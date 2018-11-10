@@ -6,7 +6,7 @@ import { Droppable } from 'react-beautiful-dnd'
 const Container = styled.div`
   margin: 8px;
   border: 1px solid lightgrey;
-  border-radius: 2px;
+  border-radius: 10px;
   width: 220px;
   display: flex;
   flex-direction: column;
@@ -14,6 +14,7 @@ const Container = styled.div`
 `;
 const Title = styled.h3`
   padding: 8px;
+  text-align:center;
 `;
 const CourseList = styled.div`
   padding: 8px;
@@ -21,7 +22,6 @@ const CourseList = styled.div`
   flex-grow:1;
   min-height:100px;
 `;
-
 export default class Column extends React.Component {
     render() {
         return(
@@ -45,7 +45,6 @@ export default class Column extends React.Component {
                     )}
                 </Droppable>
             </Container>
-
         );
     }
 }
