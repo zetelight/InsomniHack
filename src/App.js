@@ -94,7 +94,26 @@ class App extends Component {
         // plantraverse();
         // xxx
 
-        this.setState(newState);
+        //is able to add to previous term
+        var case2Allow = true;
+        if (destination.droppableId !== "columnUnpicked" && destination.droppableId !== "columnTaken"){
+            console.log(this.state.columnOrder)
+                for (var col in this.state.columnOrder){
+                    if (this.state.columnOrder[col] !== "columnUnpicked" && this.state.columnOrder[col] !== "columnTaken"){
+                        console.log(destination.droppableId < this.state.columnOrder[col])
+                        if (destination.droppableId < this.state.columnOrder[col]){
+                            console.log(destination.droppableId < this.state.columnOrder[col])
+                            case2Allow = false;
+                        }
+                    }
+                }
+
+        }
+        if (case2Allow){
+            this.setState(newState);
+        }
+
+        
 
     };
 
