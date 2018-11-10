@@ -21,8 +21,6 @@ class App extends Component {
             numberOfColumns: 3
         };
         this.addTerm = this.addTerm.bind(this);
-        //this.getTermName = this.getTermName.bine(this);
-
     }
 
     onDragEnd = result => {
@@ -147,7 +145,8 @@ class App extends Component {
                     {this.state.columnOrder.map(columnId => {
                         const column = this.state.columns[columnId];
                         const tasks = column.taskIds.map(taskId => this.state.cisCourses[taskId]);
-                        return <Column key={column.id} column={column} tasks={tasks}/>;
+                        const isDropDisabled = column.taskIds.length >= 5 && column.id != "columnUnpicked" && column.id != "columnTaken";
+                        return <Column key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled}/>;
                     })}
                 </Container>
             </DragDropContext>
