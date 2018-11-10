@@ -166,8 +166,18 @@ class App extends Component {
 
     render() {
         return (
-            <DragDropContext onDragEnd={this.onDragEnd}>
-                <button onClick={this.addTerm}>add</button>
+            <DragDropContext  onDragEnd={this.onDragEnd}>
+            <div className={'div2style'}>
+            
+                <p className={'pstyle'}>
+                    Computer and Information Science
+                </p>
+            </div>
+
+            <div className={'divstyle'}>
+            <button className={'buttonstyle'} onClick={this.addTerm}>add</button>
+            </div>
+               
                 <Container className={  'containerstyle'  }>
                     {this.state.columnOrder.map(columnId => {
                         console.log(columnId);
@@ -177,7 +187,7 @@ class App extends Component {
                         const left = columnId === "columnUnpicked";
                         const right = columnId === "columnTaken"
                         
-                        return <Column left={left}  right={right} key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled}/>;
+                        return <Column className={'columnstyle'} left={left}  right={right} key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled} />;
                     })}
                 </Container>
             </DragDropContext>
