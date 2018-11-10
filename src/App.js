@@ -3,35 +3,23 @@ import './App.css';
 import testdata from './testdata';
 import Column from './column';
 import styled from 'styled-components'
-
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
-
-
 
 const Container = styled.div`
     display: flex;
 `;
 
 class App extends Component {
-
     constructor(props) {
         super(props);
-
-
         this.state = {
             columns: testdata.columns,
             tasks: testdata.tasks,
             columnOrder: testdata.columnOrder
-
         };
-
     }
-    //state = initialData;
 
     onDragEnd = result => {
-        // TODO: reorder our column
-
         const { destination, source, draggableId } = result;
 
         if (!destination) {
@@ -44,8 +32,6 @@ class App extends Component {
         ) {
             return;
         }
-
-
 
         const start = this.state.columns[source.droppableId];
         const finish = this.state.columns[destination.droppableId];
@@ -99,8 +85,6 @@ class App extends Component {
 
         this.setState(newState);
 
-
-
     };
 
     add(){
@@ -113,7 +97,6 @@ class App extends Component {
                 taskIds: []
             }
         }
-
 
         var c = {}
         var l = []
@@ -130,28 +113,15 @@ class App extends Component {
         l.push("column-4")
 
         c["column-4"] = a["column-4"]
-        // console.log(this.state.columns)
-        // console.log(a)
-        console.log(c)
-        console.log(this.state.columns)
-
-
 
         this.setState({
             columns:c,
             columnOrder:l
-
         })
-
-
 
     }
 
-
-
     render() {
-
-
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <button  onClick={this.add.bind(this)} >add</button>

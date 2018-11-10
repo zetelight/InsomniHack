@@ -26,11 +26,6 @@ export default class Task extends React.Component {
 
                     </Container>
                 )}
-
-
-
-
-
             </Draggable>
         );
 
