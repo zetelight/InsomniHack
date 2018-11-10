@@ -67,6 +67,20 @@ class App extends Component {
             return;
         }
 
+        // check if the course has the preReq in the current term. If so, return and do nothing
+        let curClass = start.taskIds[source.index];
+        let curTermClasses = finish.taskIds;
+        let curPre = this.state.cisCourses[curClass].preReq;
+        let isConflictWithTerm = false;
+        for (var i = 0; i < curTermClasses.length; i++) {
+            if (curPre.indexOf(curTermClasses[i]) != -1) {
+                isConflictWithTerm = true;
+            }
+        }
+        
+        if (isConflictWithTerm) return;
+
+
         // drop at other column and update course color
         const startTaskIds = Array.from(start.taskIds);
         startTaskIds.splice(source.index, 1);
