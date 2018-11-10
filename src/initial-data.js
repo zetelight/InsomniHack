@@ -12,7 +12,7 @@ const initialData = {
         {
             id: 'cis211',
             content: 'cis211',
-            isMoveble: false,
+            isMoveble: true,
             context: 'Basic concepts and practices of computer science (extend Python).',
             preReq: ['cis210']
         },
@@ -20,7 +20,7 @@ const initialData = {
         {
             id: 'cis212',
             content: 'cis212',
-            isMoveble: false,
+            isMoveble: true,
             context: 'Basic concepts and practices of computer science (basic language C).',
             preReq: ['cis211']
         },
@@ -28,7 +28,7 @@ const initialData = {
         {
             id: 'cis313',
             content: 'cis313',
-            isMoveble: false,
+            isMoveble: true,
             context: 'Design and analysis of data structures as means of engineering efficient software.',
             preReq: ['cis212']
         },
@@ -36,7 +36,7 @@ const initialData = {
         {
             id: 'cis314',
             content: 'cis314',
-            isMoveble: false,
+            isMoveble: true,
             context: 'Introduction to computer organization and instruction-set architecture--digital logic design, binary arithmetic, design of central processing unit and memory, machine-level programming.',
             preReq: ['cis212']
         },
@@ -44,7 +44,7 @@ const initialData = {
         {
             id: 'cis315',
             content: 'cis315',
-            isMoveble: false,
+            isMoveble: true,
             context: 'Algorithm design, worst-case and average-behavior analysis, correctness, computational complexity.',
             preReq: ['cis313']
         },
