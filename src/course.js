@@ -4,12 +4,16 @@ import styled from 'styled-components'
 import { Draggable } from 'react-beautiful-dnd';
 
 const Container = styled.div`
-  border: 2px solid black;
-  border-radius: 2px;
+  border:${props => (
+    props.isDragDisabled ? '2px solid lightgrey' : '2px solid #1bba41'
+)};
+  border-radius: 15px;
   padding: 8px;
+  color: white;
   margin-bottom: 8px;
+  text-align: center;
   background-color: ${props => (
-      props.isDragDisabled ? 'lightgrey' : 'green'
+      props.isDragDisabled ? 'lightgrey' : '#1bba41'
   )};
 `;
 
