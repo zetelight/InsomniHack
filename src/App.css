@@ -3,8 +3,43 @@
 }
 
 .containerstyle{
-
+  background-color: #F7C91A;
+ 
   }
+
+.columnstyle{
+  background-color: black;
+}
+
+.divstyle{
+  background-color: #F7C91A;
+}
+.div2style{
+  background-color: #F7C91A;
+  text-align: left;
+  text-indent: 10%;
+  height:100px;
+
+}
+
+.pstyle{
+
+  padding: 30px;
+  font-size: 30px;
+}
+
+.buttonstyle{
+  background-color: black;
+  color: white;
+  width: 100%;
+  height:50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  border: 2px solid black;
+  border-radius: 0px;
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
