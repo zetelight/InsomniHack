@@ -21,12 +21,15 @@ class App extends Component {
     }
 
     onDragEnd = result => {
+        // retrieve info from the DragEndEvent
         const { destination, source, draggableId } = result;
 
+        // if no destination, do nothing
         if (!destination) {
             return;
         }
 
+        // if drop back to the same position, do nothing
         if (
             destination.droppableId === source.droppableId &&
             destination.index === source.index
@@ -37,6 +40,7 @@ class App extends Component {
         const start = this.state.columns[source.droppableId];
         const finish = this.state.columns[destination.droppableId];
 
+        // drop in the same column and don't update course color
         if (start === finish) {
             const newTaskIds = Array.from(start.taskIds);
 
@@ -61,6 +65,7 @@ class App extends Component {
             return;
         }
 
+        // drop at other column and update course color
         const startTaskIds = Array.from(start.taskIds);
         startTaskIds.splice(source.index, 1);
         const newStart = {
@@ -83,6 +88,9 @@ class App extends Component {
                 [newFinish.id]: newFinish,
             },
         };
+
+        // plantraverse();
+        // xxx
 
         this.setState(newState);
 
