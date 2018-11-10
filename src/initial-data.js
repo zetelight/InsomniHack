@@ -241,7 +241,7 @@ const initialData = {
         },
         'columnTaken': {
             id: 'columnTaken',
-            title: 'Courses Have Been Taken',
+            title: 'Taken Courses',
             taskIds: []
         },
         'columnTerm1': {
