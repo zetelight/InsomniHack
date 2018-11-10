@@ -22,9 +22,8 @@ class App extends Component {
         this.addTerm = this.addTerm.bind(this);
     }
 
-    unpickTraverse(courses) {
-      var newCourses = Object.assign({}, courses);
-      var unpicked = this.state.columns['columnUnpicked'].taskIds;
+    unpickTraverse(unpick, newCourses) {
+      var unpicked = unpick.taskIds;
       var i;
       var j;
       for (i=0;i<unpicked.length;i++) {
@@ -35,26 +34,25 @@ class App extends Component {
             flag = false
           }
         }
-        
         newCourses[unpicked[i]].isMoveble = flag
           
       }
-      console.log(newCourses);
       return newCourses
     }
 
-    planTraverse(newCourses){
+    planTraverse(newColumns, newCourses){
       // dictionary of tasks
       // key is the class name (string)
       // values is the class instance
       var newArray = [];
-      var curCol = this.state.columns['columnTaken'];
+      var curCol = newColumns['columnTaken'];
+      console.log(newColumns)
       for (var j=0; j<curCol.taskIds.length; j++){
         var curCourse = newCourses[curCol.taskIds[j]];
         newArray.push({key:curCol.taskIds[j], value: curCourse})
       }
-      for(var i=1; i<=Object.keys(this.state.columns).length-2; ++i){
-          curCol = this.state.columns['columnTerm' + i];
+      for(var i=1; i<=Object.keys(newColumns).length-2; ++i){
+          curCol = newColumns['Term' + i];
           for (j=0; j<curCol.taskIds.length; j++){
               curCourse = newCourses[curCol.taskIds[j]];
               newArray.push({key:curCol.taskIds[j], value: curCourse})
@@ -144,11 +142,14 @@ class App extends Component {
             ...finish,
             taskIds: finishTaskIds
         };
-        var newCourses = this.unpickTraverse(this.state.cisCourses);
-        var courses = this.planTraverse(newCourses);
 
-        
-        console.log(newCourses);
+        var unpick = newStart
+        var newColumns = this.state.columns
+        newColumns[newStart.id] = newStart
+        newColumns[newFinish.id] = newFinish
+        console.log(newColumns);
+        var newCourses = this.unpickTraverse(unpick, this.state.cisCourses);
+        var courses = this.planTraverse(newColumns, newCourses);
 
         const newState = {
             ...this.state,
@@ -161,7 +162,6 @@ class App extends Component {
             cisCourses: courses
         };
 
-        console.log(newState)
 
 
         this.setState(newState);
