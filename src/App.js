@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import testdata from './testdata';
 import initialData from './initial-data'
 
 import Column from './column';
 import styled from 'styled-components'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 const Container = styled.div`
     display: flex;
@@ -89,6 +88,7 @@ class App extends Component {
 
     };
 
+    // #TODO re-write this function
     add(){
         console.log(this.state);
 
@@ -126,25 +126,16 @@ class App extends Component {
     render() {
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
-                <button  onClick={this.add.bind(this)} >add</button>
-
+                <button onClick={this.add.bind(this)}>add</button>
                 <Container>
-
                     {this.state.columnOrder.map(columnId => {
                         const column = this.state.columns[columnId];
                         const tasks = column.taskIds.map(taskId => this.state.cisCourses[taskId]);
-
                         return <Column key={column.id} column={column} tasks={tasks}/>;
                     })}
-
                 </Container>
             </DragDropContext>
-
         );
     }
-
-
 }
-
-
 export default App;
