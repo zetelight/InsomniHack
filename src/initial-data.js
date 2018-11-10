@@ -22,13 +22,13 @@ const initialData = {
         {
             id: 'cis313',
             context: 'Design and analysis of data structures as means of engineering efficient software.',
-            preReq: ['cis210', 'cis211', 'cis212']
+            preReq: ['cis212']
         },
         'cis314':
         {
             id: 'cis314',
             context: 'Introduction to computer organization and instruction-set architecture--digital logic design, binary arithmetic, design of central processing unit and memory, machine-level programming.',
-            preReq: ['cis210', 'cis211', 'cis212']
+            preReq: ['cis212']
         },
         'cis315':
         {
@@ -40,7 +40,7 @@ const initialData = {
         {
             id: 'cis322',
             context: 'A project-intensive introduction to software engineering intended to build skills, knowledge, and habits of mind that prepare students for 400-level computer science courses, internships, and other software.',
-            preReq: ['cis210', 'cis211', 'cis212']
+            preReq: ['cis212']
         },
         'cis330':
         {
