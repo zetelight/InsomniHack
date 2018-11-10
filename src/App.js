@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import testdata from './testdata';
 import initialData from './initial-data'
 
 import Column from './column';
 import styled from 'styled-components'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 const Container = styled.div`
     display: flex;
@@ -17,63 +16,68 @@ class App extends Component {
         this.state = {
             columns: initialData.columns,
             cisCourses: initialData.cisCourses,
-            columnOrder: initialData.columnOrder
+            columnOrder: initialData.columnOrder,
+            numberOfColumns: 3
         };
+        this.addTerm = this.addTerm.bind(this);
     }
 
     unpickTraverse() {
+      var newCourses = Object.assign({}, this.state.cisCourses);
       var unpicked = this.state.columns['columnUnpicked'].taskIds;
       var i;
       var j
       for (i=0;i<unpicked.length;i++) {
-        const prerequest = this.state.cisCourses[unpicked[i]].preReq
+        const prerequest = newCourses[unpicked[i]].preReq
         var flag = true
         for (j=0;j<prerequest.length;j++) {
           if (unpicked.includes(prerequest[j])) {
             flag = false
           }
         }
-        this.state.cisCourses[unpicked[i]].isMoveble = flag
+        newCourses[unpicked[i]].isMoveble = flag
           
       }
+      return newCourses
     }
 
-    planTraverse(){
+    planTraverse(newCourses){
       // dictionary of tasks
       // key is the class name (string)
       // values is the class instance
       var newArray = [];
       var curCol = this.state.columns['columnTaken'];
       for (var j=0; j<curCol.taskIds.length; j++){
-        var curCourse = this.state.cisCourses[curCol.taskIds[j]];
+        var curCourse = newCourses[curCol.taskIds[j]];
         newArray.push({key:curCol.taskIds[j], value: curCourse})
       }
       for(var i=1; i<=Object.keys(this.state.columns).length-2; ++i){
           curCol = this.state.columns['columnTerm' + i];
           for (j=0; j<curCol.taskIds.length; j++){
-              curCourse = this.state.cisCourses[curCol.taskIds[j]];
+              curCourse = newCourses[curCol.taskIds[j]];
               newArray.push({key:curCol.taskIds[j], value: curCourse})
           }
       }
-      console.log(newArray);
       for (var myKey in newArray){
         var course = newArray[myKey];
           for (var myIn in course.value.preReq){
             var pre = course.value.preReq[myIn]
-            this.state.cisCourses[pre].isMoveble = false;
+            newCourses[pre].isMoveble = false;
           }
       }
-      console.log(this.state.cisCourses);
-      
+    return newCourses;
   }
 
     onDragEnd = result => {
+        // retrieve info from the DragEndEvent
         const { destination, source, draggableId } = result;
 
+        // if no destination, do nothing
         if (!destination) {
             return;
         }
-        
+
+        // if drop back to the same position, do nothing
         if (
             destination.droppableId === source.droppableId &&
             destination.index === source.index
@@ -84,6 +88,7 @@ class App extends Component {
         const start = this.state.columns[source.droppableId];
         const finish = this.state.columns[destination.droppableId];
 
+        // drop in the same column and don't update course color
         if (start === finish) {
             const newTaskIds = Array.from(start.taskIds);
 
@@ -108,10 +113,22 @@ class App extends Component {
             return;
         }
 
-        this.planTraverse();
-        this.unpickTraverse();
-        console.log(this.state.cisCourses);
 
+        // check if the course has the preReq in the current term. If so, return and do nothing
+        let curClass = start.taskIds[source.index];
+        let curTermClasses = finish.taskIds;
+        let curPre = this.state.cisCourses[curClass].preReq;
+        let isConflictWithTerm = false;
+        for (var i = 0; i < curTermClasses.length; i++) {
+            if (curPre.indexOf(curTermClasses[i]) !== -1) {
+                isConflictWithTerm = true;
+            }
+        }
+        
+        if (isConflictWithTerm) return;
+
+
+        // drop at other column and update course color
         const startTaskIds = Array.from(start.taskIds);
         startTaskIds.splice(source.index, 1);
         const newStart = {
@@ -126,6 +143,9 @@ class App extends Component {
             taskIds: finishTaskIds
         };
 
+        var courses = this.planTraverse();
+        var newCourses = this.unpickTraverse(courses);
+
         const newState = {
             ...this.state,
             columns: {
@@ -133,42 +153,54 @@ class App extends Component {
                 [newStart.id]: newStart,
                 [newFinish.id]: newFinish,
             },
+
+            cisCourses: { 
+                  newCourses,
+            }
+
+            
         };
+
 
         this.setState(newState);
 
     };
 
-    add(){
-        console.log(this.state);
 
-        var a = {
-            "column-4": {
-                id: "column-4",
-                title: "44444",
+    getTermName(id){
+        return "Term"+id
+    }
+
+    addTerm(){
+        var numOfCol = this.state.numberOfColumns+1
+        var name = this.getTermName(numOfCol-2)
+
+        var newCol = {
+            name: {
+                id: name,
+                title: name,
                 taskIds: []
             }
         }
 
-        var c = {}
-        var l = []
-        for (var i in this.state.columns) {
-
-            c[i] = this.state.columns[i]
-
+        var cols = {}
+        var colsOrder = []
+        for (var c in this.state.columns) {
+            cols[c] = this.state.columns[c]
         }
 
-        for (i in this.state.columnOrder){
-            l.push(this.state.columnOrder[i])
+
+        for (var index in this.state.columnOrder){
+            colsOrder.push(this.state.columnOrder[index])
         }
 
-        l.push("column-4")
-
-        c["column-4"] = a["column-4"]
+        colsOrder.splice(-1,0,name)
+        cols[name] = newCol['name']
 
         this.setState({
-            columns:c,
-            columnOrder:l
+            columns:cols,
+            columnOrder:colsOrder,
+            numberOfColumns:numOfCol
         })
 
     }
@@ -176,25 +208,17 @@ class App extends Component {
     render() {
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
-                <button  onClick={this.add.bind(this)} >add</button>
-
+                <button onClick={this.addTerm}>add</button>
                 <Container>
-
                     {this.state.columnOrder.map(columnId => {
                         const column = this.state.columns[columnId];
                         const tasks = column.taskIds.map(taskId => this.state.cisCourses[taskId]);
-
-                        return <Column key={column.id} column={column} tasks={tasks}/>;
+                        const isDropDisabled = column.taskIds.length >= 5 && column.id !== "columnUnpicked" && column.id !== "columnTaken";
+                        return <Column key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled}/>;
                     })}
-
                 </Container>
             </DragDropContext>
-
         );
     }
-
-
 }
-
-
 export default App;

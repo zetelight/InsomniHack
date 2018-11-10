@@ -99,9 +99,9 @@ const initialData = {
         'cis410':
         {
             id: 'cis410',
-            cotent: 'cis410',
+            content: 'cis410',
             isMoveble: false,
-            context: 'Different Topic',
+            context: 'Different Topics.',
             preReq: []
         },
         'cis413':
@@ -195,7 +195,7 @@ const initialData = {
         'cis453':
         {
             id: 'cis453',
-            cotent: 'cis453',
+            content: 'cis453',
             isMoveble: false,
             context: 'Databases, machine learning, artificial intelligence, statistics, and data visualization. Examines data warehouses, data preprocessing, association and classification rule mining, and cluster analysis.',
             preReq: ['cis451']

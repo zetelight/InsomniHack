@@ -77,3 +77,6 @@ typings/
 
 # idea file
 .idea
+
+# uncessary test data
+src/testdata.js
