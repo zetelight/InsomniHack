@@ -99,6 +99,7 @@ const initialData = {
         'cis410':
         {
             id: 'cis410',
+            content: 'cis410',
             isMoveble: false,
             context: 'Different Topics.',
             preReq: []
