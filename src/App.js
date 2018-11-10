@@ -113,25 +113,25 @@ class App extends Component {
         }
     
         // check if the course has the preReq in the current term. If so, return and do nothing
-        let curClass = start.taskIds[source.index];
-        let curTermClasses = finish.taskIds;
-        let curPre = this.state.cisCourses[curClass].preReq;
         let isConflictWithTerm = false;
-        for (var i = 0; i < curTermClasses.length; i++) {
-          if (curPre.indexOf(curTermClasses[i]) !== -1) {
-            isConflictWithTerm = true;
+        console.log(finish);
+        if (destination.droppableId !== "columnTaken") {
+          let curClass = start.taskIds[source.index];
+          let curTermClasses = finish.taskIds;
+          let curPre = this.state.cisCourses[curClass].preReq;
+          for (var i = 0; i < curTermClasses.length; i++) {
+            if (curPre.indexOf(curTermClasses[i]) !== -1) {
+              isConflictWithTerm = true;
+            }
           }
         }
     
         //is able to add to previous term
         var case2Allow = true;
         if (destination.droppableId !== "columnUnpicked" && destination.droppableId !== "columnTaken") {
-          console.log(this.state.columnOrder)
           for (var col in this.state.columnOrder) {
             if (this.state.columnOrder[col] !== "columnUnpicked" && this.state.columnOrder[col] !== "columnTaken") {
-              console.log(destination.droppableId < this.state.columnOrder[col])
               if (destination.droppableId < this.state.columnOrder[col]) {
-                console.log(destination.droppableId < this.state.columnOrder[col])
                 case2Allow = false;
               }
             }
