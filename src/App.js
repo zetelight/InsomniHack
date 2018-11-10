@@ -22,11 +22,11 @@ class App extends Component {
         this.addTerm = this.addTerm.bind(this);
     }
 
-    unpickTraverse() {
-      var newCourses = Object.assign({}, this.state.cisCourses);
+    unpickTraverse(courses) {
+      var newCourses = Object.assign({}, courses);
       var unpicked = this.state.columns['columnUnpicked'].taskIds;
       var i;
-      var j
+      var j;
       for (i=0;i<unpicked.length;i++) {
         const prerequest = newCourses[unpicked[i]].preReq
         var flag = true
@@ -35,9 +35,11 @@ class App extends Component {
             flag = false
           }
         }
+        
         newCourses[unpicked[i]].isMoveble = flag
           
       }
+      console.log(newCourses);
       return newCourses
     }
 
@@ -142,9 +144,11 @@ class App extends Component {
             ...finish,
             taskIds: finishTaskIds
         };
+        var newCourses = this.unpickTraverse(this.state.cisCourses);
+        var courses = this.planTraverse(newCourses);
 
-        var courses = this.planTraverse();
-        var newCourses = this.unpickTraverse(courses);
+        
+        console.log(newCourses);
 
         const newState = {
             ...this.state,
@@ -154,12 +158,10 @@ class App extends Component {
                 [newFinish.id]: newFinish,
             },
 
-            cisCourses: { 
-                  newCourses,
-            }
-
-            
+            cisCourses: courses
         };
+
+        console.log(newState)
 
 
         this.setState(newState);
