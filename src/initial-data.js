@@ -237,7 +237,7 @@ const initialData = {
         'columnUnpicked': {
             id: 'columnUnpicked',
             title: 'All CIS Courses',
-            taskIds: ['cis210', 'cis211', 'cis212', 'cis313', 'cis314', 'cis315', 'cis322', 'cis330', 'cis399', 'cis407', 'cis415', 'cis425', 'cis410', 'cis413', 'cis420', 'cis422', 'cis427', 'cis431', 'cis432', 'cis433', 'cis441', 'cis443', 'cis445', 'cis451', 'cis453', 'cis461', 'cis471', 'cis472']
+            taskIds: ['cis210', 'cis211', 'cis212', 'cis313', 'cis314', 'cis315', 'cis322', 'cis330', 'cis399', 'cis407', 'cis415', 'cis425', 'cis410', 'cis413', 'cis420', 'cis422', 'cis427', 'cis431', 'cis432', 'cis433', 'cis441', 'cis443', 'cis445', 'cis451', 'cis453', 'cis461', 'cis471', 'cis472', 'noncis']
         },
         'columnTaken': {
             id: 'columnTaken',
