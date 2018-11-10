@@ -244,13 +244,13 @@ const initialData = {
             title: 'Courses Have Been Taken',
             taskIds: []
         },
-        'columnTerm1': {
-            id: 'columnTerm1',
+        'Term1': {
+            id: 'Term1',
             title: 'Term1',
             taskIds: []
         },
     },
-    columnOrder: ['columnUnpicked', 'columnTerm1', 'columnTaken']
+    columnOrder: ['columnUnpicked', 'Term1', 'columnTaken']
 };
  
 export default initialData;
