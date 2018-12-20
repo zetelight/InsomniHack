@@ -19,7 +19,7 @@ const Container = styled.div`
 
 export default class Course extends React.Component {
     render() {
-        const isDragDisabled = this.props.task.isMoveble === false;
+        const isDragDisabled = this.props.task.status !== 1;
         return(
             <Draggable 
                 draggableId={this.props.task.id} 
@@ -33,7 +33,7 @@ export default class Course extends React.Component {
                         {...provided.dragHandleProps}
                         isDragDisabled={isDragDisabled}
                     >
-                        {this.props.task.content}
+                        {this.props.task.id}
                     </Container>
                 )}
             </Draggable>

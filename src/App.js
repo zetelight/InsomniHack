@@ -35,7 +35,7 @@ class App extends Component {
             }
           }
           newCourses[unpicked[i]].isMoveble = flag
-    
+  
         }
         return newCourses
       }
@@ -128,9 +128,9 @@ class App extends Component {
     
         //is able to add to previous term
         var case2Allow = true;
-        if (destination.droppableId !== "columnUnpicked" && destination.droppableId !== "columnTaken") {
+        if (destination.droppableId !== "cisLower" && destination.droppableId !== "cisUpper" && destination.droppableId !== "cisElective") {
           for (var col in this.state.columnOrder) {
-            if (this.state.columnOrder[col] !== "columnUnpicked" && this.state.columnOrder[col] !== "columnTaken") {
+            if (this.state.columnOrder[col] !== "cisLower" && destination.droppableId !== "cisUpper" && destination.droppableId !== "cisElective") {
               if (destination.droppableId < this.state.columnOrder[col]) {
                 case2Allow = false;
               }
@@ -234,11 +234,10 @@ class App extends Component {
                         console.log(columnId);
                         const column = this.state.columns[columnId];
                         const tasks = column.taskIds.map(taskId => this.state.cisCourses[taskId]);
-                        const isDropDisabled = column.taskIds.length >= 5 && column.id !== "columnUnpicked" && column.id !== "columnTaken";
-                        const left = columnId === "columnUnpicked";
-                        const right = columnId === "columnTaken"
+                        const isDropDisabled = column.taskIds.length >= 5 && column.id !== "cisLower" && column.id !== "cisUpper"&& column.id !== "cisElective";
+       
                         
-                        return <Column className={'columnstyle'} left={left}  right={right} key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled} />;
+                        return <Column className={'columnstyle'}  key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled} />;
                     })}
                 </Container>
             </DragDropContext>

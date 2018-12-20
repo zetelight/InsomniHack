@@ -32,7 +32,7 @@ const CourseList = styled.div`
 export default class Column extends React.Component {
     render() {
         return(
-            <Container left={this.props.left}  right={this.props.right} >
+            <Container >
                 <Title>{this.props.column.title}</Title>
                 <Droppable 
                     droppableId={this.props.column.id}
